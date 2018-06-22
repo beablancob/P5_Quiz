@@ -1,28 +1,20 @@
 var express = require('express');
 var router = express.Router();
-const Sequelize = require('sequelize');
-const sequelize = require('../models/index');
 
+const quizController = require ('../controllers/quiz');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'P5_Quiz' });
+  res.render('index', { title: 'Express' });
 });
 
-/* GET credits page. */
-router.get('/credits', function(req, res, next) {
-  res.render('credits', { title: 'Beatriz Blanco' });
+
+router.get('/credits', function(req, res, next){
+  res.render('credits', { title: 'Credits'});
 });
 
 router.get('/quizzes', function(req, res, next) {
-
-  sequelize.models.quiz.findAll()
-      .then(quizzes => {
-        res.render('quizzes', {quizzes});
-  })
-  .catch(error =>{
-    next(error);
-  });
+    quizController.index(req,res,next);
 });
 
 module.exports = router;
